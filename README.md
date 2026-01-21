@@ -793,3 +793,108 @@ The first step is to securely add your AWS credentials to the GitHub repository:
   - AWS_ACCESS_KEY_ID – your AWS access key
   - AWS_SECRET_ACCESS_KEY – your AWS secret key
 Storing credentials as secrets ensures that sensitive information is not exposed in your code, following industry best practices for security.
+
+<img width="1461" height="874" alt="Screenshot 2026-01-21 at 12 38 03 PM" src="https://github.com/user-attachments/assets/1df7154b-357b-4084-915c-53dccfd93cc8" />
+
+### Creating a GitHub Actions Workflow for Terraform
+After adding your AWS credentials as secrets, the next step is to create a workflow to deploy the infrastructure on AWS using GitHub Actions.
+
+1. In your repository, create a directory:
+```bash
+.github/workflows
+```
+2. Inside the workflows directory, you can create one or more workflow files.
+For this guide, we will create a file named:
+```bash
+Terraform.yaml
+```
+Note: All GitHub Actions workflows are written in YAML format, which defines the steps and triggers for automation.
+
+### Below is the Workflow YAML script
+The Workflow will trigger manually and add two parameters (tfvars file name and apply or destroy action)
+```yaml
+name: 'EKS-Creation-Using-Terraform'
+
+on:
+  workflow_dispatch:
+    inputs:
+      tfvars_file:
+        description: 'Path to the .tfvars file'
+        required: true
+        default: 'dev.tfvars'
+      action:
+        type: choice
+        description: 'Terraform Action'
+        options:
+          - plan
+          - apply
+          - destroy
+        required: true
+        default: 'apply'
+
+env:
+  AWS_REGION: us-east-1
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+permissions:
+  contents: read
+
+jobs:
+  terraform:
+    name: Terraform ${{ github.event.inputs.action }}
+    runs-on: ubuntu-latest
+    environment: production
+
+    defaults:
+      run:
+        shell: bash
+        working-directory: eks
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.9.3
+          terraform_wrapper: true
+
+      # Optional: Enable caching to speed up init
+      - name: Cache Terraform
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.terraform.d/plugin-cache
+            .terraform
+          key: ${{ runner.os }}-terraform-${{ hashFiles('**/*.tf') }}
+          restore-keys: |
+            ${{ runner.os }}-terraform-
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Format Check
+        run: terraform fmt -check -diff
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Plan
+        if: ${{ github.event.inputs.action == 'plan' }}
+        run: |
+          terraform plan -var-file=${{ github.event.inputs.tfvars_file }} -input=false
+
+      - name: Terraform Apply
+        if: ${{ github.event.inputs.action == 'apply' }}
+        run: |
+          terraform apply -auto-approve -var-file=${{ github.event.inputs.tfvars_file }} -input=false
+
+      - name: Terraform Destroy
+        if: ${{ github.event.inputs.action == 'destroy' }}
+        run: |
+          terraform destroy -auto-approve -var-file=${{ github.event.inputs.tfvars_file }} -input=false
+```
+
+### To do that, click on Actions
