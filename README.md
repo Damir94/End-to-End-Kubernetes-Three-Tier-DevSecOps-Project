@@ -898,3 +898,9 @@ jobs:
 ```
 
 ### To do that, click on Actions
+
+<img width="1918" height="308" alt="Screenshot 2026-01-23 at 12 16 51 PM" src="https://github.com/user-attachments/assets/d4a40adc-5f32-4989-ab99-7cd90ac9a0a7" />
+
+To run the workflow, you need to provide a parameter.
+
+Click on Run workflow after providing the arguments(Initially, we will run the plan only).
