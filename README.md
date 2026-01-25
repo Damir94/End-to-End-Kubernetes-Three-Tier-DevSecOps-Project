@@ -910,3 +910,38 @@ Click on Run workflow after providing the arguments(Initially, we will run the p
 The Plan is Successful.
 
 <img width="1869" height="668" alt="Screenshot 2026-01-23 at 12 39 43 PM" src="https://github.com/user-attachments/assets/5edc1556-345a-402e-a0b8-829d6645d3b4" />
+
+You can click on Terraform-Action to check the plan
+
+<img width="1657" height="853" alt="Screenshot 2026-01-24 at 6 59 11 PM" src="https://github.com/user-attachments/assets/3456407e-73ca-4232-a8ad-4d9457057a4d" />
+
+Now, we are ready to run the application. Workflow completed, and it has created our EKS Cluster with node groups.
+
+Let’s validate them by viewing them on the Console
+### VPC
+
+
+### Public & Private Subnets
+
+
+
+### Internet Gateway
+
+
+
+### Elastic IP
+
+
+
+### Security Group
+
+### EKS Cluster
+
+### NodeGroups
+
+### OIDC Connector
+
+If you want to destroy the infrastructure, you can simply go to the Actions Section then click on Terraform workflow
+Note: To destroy, select the destroy option from the parameters
+
+Here, our workflow succeeded, and services have been deleted.
