@@ -919,6 +919,7 @@ Now, we are ready to run the application. Workflow completed, and it has created
 
 Let’s validate them by viewing them on the Console
 ### VPC
+<img width="688" height="97" alt="Screenshot 2026-02-05 at 12 45 55 PM" src="https://github.com/user-attachments/assets/b3460c9c-8959-4385-a379-ccddc4a66025" />
 
 
 ### Public & Private Subnets
