@@ -938,15 +938,12 @@ Let’s validate them by viewing them on the Console
 ![1_jTUJa9kexm4SGg7i2_30Ug](https://github.com/user-attachments/assets/fdf30504-fbfc-4ce3-b41e-b7026e048f6e)
 
 ### EKS Cluster
-
 ![1_dCk9vHH4Z4GgXQUXiNSZrw](https://github.com/user-attachments/assets/9ee6c9e5-6f6a-460e-b614-ab59f211dbd4)
 
 ### NodeGroups
-
 ![1_MQhUxuq4rjrSfmzPtLFFWA](https://github.com/user-attachments/assets/9d0d8cde-d171-407b-91ef-cbca53fb0e51)
 
 ### OIDC Connector
-
 ![1_inACFoMjD6HRGBrbRdz_-A](https://github.com/user-attachments/assets/b5ee8471-0a47-4004-95b7-5800c29df96c)
 
 If you want to destroy the infrastructure, you can simply go to the Actions Section then click on Terraform workflow
