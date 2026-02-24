@@ -10,7 +10,7 @@ terraform {
 }
 
 provider "aws" {
-  region = var.aws_region
+  region = "us-east-1"
 }
 
 resource "aws_s3_bucket" "terraform_state_bucket" {
